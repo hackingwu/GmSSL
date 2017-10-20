@@ -38,6 +38,15 @@ typedef struct SHAstate_st {
     unsigned int num;
 } SHA_CTX;
 
+/*
+ * SHA0 implementation
+ */
+int SHA_Init(SHA_CTX *c);
+int SHA_Update(SHA_CTX *c, const void *data, size_t len);
+int SHA_Final(unsigned char *md, SHA_CTX *c);
+unsigned char *SHA(const unsigned char *d, size_t n, unsigned char *md);
+void SHA_Transform(SHA_CTX *c, const unsigned char *data);
+
 int SHA1_Init(SHA_CTX *c);
 int SHA1_Update(SHA_CTX *c, const void *data, size_t len);
 int SHA1_Final(unsigned char *md, SHA_CTX *c);

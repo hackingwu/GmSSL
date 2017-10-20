@@ -4860,3 +4860,9 @@ speck_set_encrypt_key16                 4701	1_1_0d	EXIST::FUNCTION:
 speck_expand16                          4702	1_1_0d	EXIST::FUNCTION:
 speck_set_decrypt_key64                 4703	1_1_0d	EXIST::FUNCTION:
 speck_set_decrypt_key16                 4704	1_1_0d	EXIST::FUNCTION:
+SHA_Init                                4705    1_1_0d  EXIST::FUNCTION:
+SHA_Transform                           4706    1_1_0d  EXIST::FUNCTION:
+SHA_Update                              4707    1_1_0d  EXIST::FUNCTION:
+SHA_Final                               4708    1_1_0d  EXIST::FUNCTION:
+SHA                                     4709    1_1_0d  EXIST::FUNCTION:
+EVP_sha                                 4710    1_1_0d  EXIST::FUNCTION:

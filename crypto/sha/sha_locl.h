@@ -27,6 +27,17 @@
         ll=(c)->h4; (void)HOST_l2c(ll,(s));     \
         } while (0)
 
+#if defined SHA_0
+
+# define HASH_UPDATE                    SHA_Update
+# define HASH_TRANSFORM                 SHA_Transform
+# define HASH_FINAL                     SHA_Final
+# define HASH_INIT                      SHA_Init
+# define HASH_BLOCK_DATA_ORDER          sha_block_data_order
+# define Xupdate(a,ix,ia,ib,ic,id)      (ix=(a)=(ia^ib^ic^id))
+static void sha_block_data_order(SHA_CTX *c, const void *p, size_t num);
+#elif defined SHA_1
+
 #define HASH_UPDATE                     SHA1_Update
 #define HASH_TRANSFORM                  SHA1_Transform
 #define HASH_FINAL                      SHA1_Final
@@ -40,6 +51,10 @@
 static void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
 #else
 void sha1_block_data_order(SHA_CTX *c, const void *p, size_t num);
+#endif
+
+#else
+# error "Either SHA_0 or SHA_1 must be defined."
 #endif
 
 #include "internal/md32_common.h"
@@ -132,7 +147,7 @@ int HASH_INIT(SHA_CTX *c)
 #  define X(i)   XX[i]
 # endif
 
-# if !defined(SHA1_ASM)
+# if !defined(SHA1_ASM) || !defined(SHA_1)
 static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
 {
     const unsigned char *data = p;
@@ -366,7 +381,7 @@ static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
         E=D, D=C, C=ROTATE(B,30), B=A;  \
         A=ROTATE(A,5)+T+xa;         } while(0)
 
-# if !defined(SHA1_ASM)
+# if !defined(SHA1_ASM) || !defined(SHA_1)
 static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
 {
     const unsigned char *data = p;

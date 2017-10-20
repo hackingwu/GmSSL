@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 # ifdef CHARSET_EBCDIC
         ebcdic2ascii(test[i], test[i], strlen(test[i]));
 # endif
-        if (!EVP_Digest(test[i], strlen(test[i]), md, NULL, EVP_sha1(),
+        if (!EVP_Digest(test[i], strlen(test[i]), md, NULL, EVP_sha(),
             NULL)) {
             printf("EVP_Digest() error\n");
             err++;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
         }
         p = pt(md);
         if (strcmp(p, (char *)*R) != 0) {
-            printf("error calculating SHA1 on '%s'\n", test[i]);
+            printf("error calculating SHA0 on '%s'\n", test[i]);
             printf("got %s instead of %s\n", p, *R);
             err++;
         } else
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 #ifdef CHARSET_EBCDIC
     ebcdic2ascii(buf, buf, 1000);
 #endif                         /* CHARSET_EBCDIC */
-    if (!EVP_DigestInit_ex(c, EVP_sha1(), NULL)) {
+    if (!EVP_DigestInit_ex(c, EVP_sha(), NULL)) {
         printf("EVP_DigestInit_ex() error\n");
         err++;
         goto err;
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
     r = bigret;
     if (strcmp(p, r) != 0) {
-        printf("error calculating SHA1 on 'a' * 1000\n");
+        printf("error calculating SHA0 on 'a' * 1000\n");
         printf("got %s instead of %s\n", p, r);
         err++;
     } else

@@ -14,4 +14,7 @@
 
 /* The implementation is in ../md32_common.h */
 
+#undef SHA_0
+#define SHA_1
+
 # include "sha_locl.h"
